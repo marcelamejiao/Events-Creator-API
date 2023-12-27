@@ -5,6 +5,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -26,5 +27,10 @@ public class EventService {
         Event created = this.eventRepository.save(newEvent);
 
         return created;
+    }
+
+    public Optional<Event> getById(Long id) {
+        Optional<Event> foundEvent= eventRepository.findById(id);
+        return foundEvent;
     }
 }
