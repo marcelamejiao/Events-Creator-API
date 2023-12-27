@@ -40,4 +40,16 @@ public class EventController {
         return new ResponseEntity<Event>(newEvent, HttpStatus.CREATED);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Event> deleteById(@PathVariable Long id) {
+        boolean deleted = this.eventService.deleteById(id);
+
+        if(deleted == true) {
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+
+        throw new NotFoundException(String
+                .format("Event with id: %d does not exist, could not delete", id));
+    }
+
 }

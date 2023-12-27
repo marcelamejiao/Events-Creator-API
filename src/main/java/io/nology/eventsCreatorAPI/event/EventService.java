@@ -33,4 +33,15 @@ public class EventService {
         Optional<Event> foundEvent= eventRepository.findById(id);
         return foundEvent;
     }
+
+    public boolean deleteById(Long id) {
+        Optional<Event> foundEvent = this.eventRepository.findById(id);
+
+        if(foundEvent.isPresent()) {
+            this.eventRepository.delete(foundEvent.get());
+            return true;
+        }
+
+        return false;
+    }
 }
