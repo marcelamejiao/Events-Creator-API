@@ -26,13 +26,13 @@ public class EventUpdateDTO {
     private String label;
 
     public EventUpdateDTO(String eventName,
-                          OffsetDateTime startDate,
-                          OffsetDateTime endDate,
-                          String  location,
+                          String startDate,
+                          String endDate,
+                          String location,
                           String label)  throws ParseException {
         this.eventName = eventName;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.startDate = OffsetDateTime.parse(startDate);
+        this.endDate = OffsetDateTime.parse(endDate);
         this.location = location;
         this.label = label;
     }
