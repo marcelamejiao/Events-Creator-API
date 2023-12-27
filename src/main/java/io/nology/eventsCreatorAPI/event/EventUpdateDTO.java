@@ -13,10 +13,8 @@ public class EventUpdateDTO {
     @NotBlank
     private String eventName;
 
-    @NotBlank
     private OffsetDateTime startDate;
 
-    @NotBlank
     private OffsetDateTime endDate;
 
     @NotBlank

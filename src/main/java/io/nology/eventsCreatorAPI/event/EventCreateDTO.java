@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import java.text.ParseException;
 import java.time.OffsetDateTime;
+import java.util.Arrays;
 
 @Getter
 @Setter
@@ -13,10 +14,8 @@ public class EventCreateDTO {
     @NotBlank
     private String eventName;
 
-    @NotBlank
     private OffsetDateTime startDate;
 
-    @NotBlank
     private OffsetDateTime endDate;
 
     @NotBlank
