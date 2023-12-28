@@ -1,9 +1,12 @@
 package io.nology.eventsCreatorAPI.event;
 
+import io.nology.eventsCreatorAPI.exceptions.UnprocessableEntityException;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,6 +56,12 @@ public class EventService {
         }
 
         Event toUpdate = foundEvent.get();
+
+        // If the event ended in the past, throw an error
+        if (toUpdate.getEndDate().compareTo(OffsetDateTime.now()) < 0) {
+            throw new UnprocessableEntityException(String
+                    .format("Event with id: %d can not be updated, because the end date is in the past", id));
+        }
 
         modelMapper.map(data, toUpdate);
 
