@@ -60,4 +60,12 @@ public class EventService {
 
         return Optional.of(updatedEvent);
     }
+
+    public List<Event> getAllByLabel(String label) {
+        return this.eventRepository.findByLabel(label);
+    }
+
+    public List<Event> getAllByLocation(String location) {
+        return this.eventRepository.findByLocation(location);
+    }
 }

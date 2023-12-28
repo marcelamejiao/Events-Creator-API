@@ -67,4 +67,18 @@ public class EventController {
                 .format("Event with id: %d does not exist, could not update", id));
     }
 
+    @GetMapping("/label")
+    @ResponseBody
+    public ResponseEntity<List<Event>> getAllByLabel(@RequestParam String label) {
+        List<Event> allEvents = this.eventService.getAllByLabel(label);
+        return new ResponseEntity<>(allEvents, HttpStatus.OK);
+    }
+
+    @GetMapping("/location")
+    @ResponseBody
+    public ResponseEntity<List<Event>> getAllByLocation(@RequestParam String location) {
+        List<Event> allEvents = this.eventService.getAllByLocation(location);
+        return new ResponseEntity<>(allEvents, HttpStatus.OK);
+    }
+
 }
