@@ -2,6 +2,7 @@ package io.nology.eventsCreatorAPI.event;
 
 import io.nology.eventsCreatorAPI.exceptions.NotFoundException;
 import jakarta.validation.Valid;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,6 +51,20 @@ public class EventController {
 
         throw new NotFoundException(String
                 .format("Event with id: %d does not exist, could not delete", id));
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Event> updateById(@PathVariable Long id,
+        @Valid @RequestBody EventUpdateDTO data) {
+
+        Optional<Event> updated = this.eventService.updateById(id, data);
+
+        if(updated.isPresent()) {
+            return new ResponseEntity<Event>(updated.get(), HttpStatus.OK);
+        }
+
+        throw new NotFoundException(String
+                .format("Event with id: %d does not exist, could not update", id));
     }
 
 }

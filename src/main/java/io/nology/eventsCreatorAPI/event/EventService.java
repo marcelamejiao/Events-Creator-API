@@ -44,4 +44,20 @@ public class EventService {
 
         return false;
     }
+
+    public Optional<Event> updateById(Long id, EventUpdateDTO data) {
+        Optional<Event> foundEvent = this.getById(id);
+
+        if (! foundEvent.isPresent()) {
+            return foundEvent;
+        }
+
+        Event toUpdate = foundEvent.get();
+
+        modelMapper.map(data, toUpdate);
+
+        Event updatedEvent = this.eventRepository.save(toUpdate);
+
+        return Optional.of(updatedEvent);
+    }
 }
