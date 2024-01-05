@@ -74,11 +74,21 @@ public class EventController {
         return new ResponseEntity<>(allEvents, HttpStatus.OK);
     }
 
+    // GET http://localhost:8080/events/location?location=sydney
     @GetMapping("/location")
     @ResponseBody
     public ResponseEntity<List<Event>> getAllByLocation(@RequestParam String location) {
         List<Event> allEvents = this.eventService.getAllByLocation(location);
         return new ResponseEntity<>(allEvents, HttpStatus.OK);
     }
+
+    // GET http://localhost:8080/events/by-date?startDate=2024-01-01T10:00:00Z&endDate=2024-01-31T10:00:00Z
+    @GetMapping("/by-date")
+    @ResponseBody
+    public ResponseEntity<List<Event>> getByDate(@RequestParam String startDate, @RequestParam String endDate) {
+        List<Event> allEvents = this.eventService.getByDate(startDate, endDate);
+        return new ResponseEntity<>(allEvents, HttpStatus.OK);
+    }
+
 
 }

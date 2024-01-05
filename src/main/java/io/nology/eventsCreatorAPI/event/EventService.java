@@ -77,4 +77,8 @@ public class EventService {
     public List<Event> getAllByLocation(String location) {
         return this.eventRepository.findByLocation(location);
     }
+
+    public List<Event> getByDate(String startDate, String endDate) {
+        return this.eventRepository.findByStartDateBetween(OffsetDateTime.parse(startDate), OffsetDateTime.parse(endDate));
+    }
 }
