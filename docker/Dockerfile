@@ -1,4 +1,6 @@
-FROM maven:3-eclipse-temurin-17-alpine as java-builder
+FROM maven:3-eclipse-temurin-21-alpine as base
+
+FROM base as java-builder
 
 WORKDIR /server
 
@@ -15,7 +17,7 @@ RUN unset MAVEN_CONFIG \
 #    && mvn clean package \
     && mvn clean package -Dmaven.test.skip
 
-FROM maven:3-eclipse-temurin-17-alpine as base
+FROM base as app
 
 # Install dependencies
 RUN apk add --no-cache \
@@ -33,8 +35,6 @@ ADD docker/supervisor/supervisord.conf /etc/supervisor
 ADD docker/supervisor/app.ini /etc/supervisor/conf.d
 
 WORKDIR /app
-
-FROM base as app
 
 # Add the compiled backend
 COPY --from=java-builder /server/target/server.jar /app/server.jar
